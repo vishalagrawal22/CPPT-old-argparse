@@ -1,22 +1,15 @@
 #!/usr/bin/env python3
 
-import sys
+from logic import *
 import os
 import argparse
 
 app_name = "cppt"
 
 
-def make_folder(base_path):
-    app_folder_path = base_path + "/.{}".format(app_name)
-    if not os.path.isdir(base_path):
-        print('The path specified does not exist')
-        sys.exit()
-    elif os.path.exists(app_folder_path):
-        print("Folder already exists!")
-    else:
-        print("Created folder: " + app_folder_path)
-        os.mkdir(app_folder_path)
+def create(args):
+    create_file(args.path, args.filename)
+    print(args)
 
 
 def init(args):
@@ -29,9 +22,7 @@ def init(args):
 def fetch(args):
     print("Fetch")
     base_path = args.path
-    url = args.url
     print("base_path: " + base_path)
-    print("url: " + url)
     app_folder_path = base_path + "/.{}".format(app_name)
     if not os.path.exists(app_folder_path):
         make_folder(base_path)
@@ -60,7 +51,7 @@ init_parser.set_defaults(func=init)
 
 fetch_parser = subparsers.add_parser('fetch',
                                      help="Fetch a problem",
-                                     usage="{} fetch [-p path] url".format(app_name))
+                                     usage="{} fetch [-p path]".format(app_name))
 
 fetch_parser.add_argument("-p", '--path',
                           metavar='path',
@@ -70,9 +61,21 @@ fetch_parser.add_argument("-p", '--path',
 
 fetch_parser.set_defaults(func=fetch)
 
-fetch_parser.add_argument("url",
+create_parser = subparsers.add_parser('create',
+                                     help="Create a task file",
+                                     usage="{} create [-p path] filename".format(app_name))
+
+create_parser.add_argument("-p", '--path',
+                          metavar='path',
                           type=str,
-                          help='the link of the problem')
+                          default=".",
+                          help='the path to folder')
+
+create_parser.add_argument('filename',
+                          type=str,
+                          help='name of the file (with file extension) to be created')
+
+create_parser.set_defaults(func=create)
 
 args = parser.parse_args()
 if (hasattr(args, "func")):
