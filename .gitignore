@@ -3,3 +3,5 @@
 .cph
 .cppt
 __pycache__
+base_config.json
+*.cpp
