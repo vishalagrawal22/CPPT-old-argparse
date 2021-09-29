@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from logic import *
+import logic
 import os
 import argparse
 
@@ -8,7 +8,7 @@ app_name = "cppt"
 
 
 def create(args):
-    create_file(args.path, args.filename)
+    logic.create_file(args.path, args.filename)
     print(args)
 
 
@@ -16,7 +16,7 @@ def init(args):
     print("Initialise")
     base_path = args.path
     print("base_path: " + base_path)
-    make_folder(base_path)
+    logic.make_folder(base_path)
 
 
 def fetch(args):
@@ -25,7 +25,7 @@ def fetch(args):
     print("base_path: " + base_path)
     app_folder_path = base_path + "/.{}".format(app_name)
     if not os.path.exists(app_folder_path):
-        make_folder(base_path)
+        logic.make_folder(base_path)
 
 
 parser = argparse.ArgumentParser(prog='{}'.format(app_name),

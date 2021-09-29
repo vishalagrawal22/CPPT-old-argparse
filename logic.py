@@ -17,14 +17,14 @@ def make_folder(base_path):
 
 
 def create_file(base_path, file_name):
-    file_name_without_ext = file_name[:file_name.find(".")]
+    file_name_without_ext = file_name[:file_name.rfind(".")]
     app_folder_path = base_path + "/.{}".format(app_name)
     task_folder = app_folder_path + \
         "/{}".format(file_name_without_ext)
     tc_folder = task_folder + \
-        "/TC".format(app_name)
+        "/tc".format(app_name)
     last_run_folder = task_folder + \
-        "/Last Run".format(app_name)
+        "/last_run".format(app_name)
     file_path = base_path + "/{}".format(file_name)
 
     if os.path.exists(task_folder):
