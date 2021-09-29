@@ -1,4 +1,4 @@
-import os
+import os, signal
 from flask import Flask, jsonify, request, Response
 app = Flask(__name__) 
 
@@ -37,6 +37,8 @@ def gen_samples(data):
 @app.route('/', methods=['POST'])
 def get_data():
     gen_samples(request.json)
+    print("Server is shutting down...")
+    os.kill(os.getpid(), signal.SIGINT)
     return Response(status = 200)  
 
 if __name__ == '__main__':
