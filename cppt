@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-from logic import *
+from init.make_folder import make_folder
+from fetch.parse import parse
+from create.create_file import create_file
 import os
 import argparse
 
