@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# // testing webhook
+# testing webhook
 
 from init.make_folder import make_folder
 from fetch.parse import parse_manager
