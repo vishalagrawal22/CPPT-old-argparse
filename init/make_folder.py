@@ -13,6 +13,6 @@ def make_folder(base_path, mode = 0):
         if (mode == 0):
             print("Folder already exists!")
     else:
+        os.mkdir(app_folder_path)
         if (mode == 0):
             print("Created folder: " + app_folder_path)
-        os.mkdir(app_folder_path)

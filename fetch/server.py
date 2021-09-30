@@ -1,25 +1,21 @@
-import json
+import os
+import signal
 
-from werkzeug.serving import make_server
-from parse import parse
-from flask import Flask, jsonify, request, Response
+from create.create_file import create_file
+from flask import Flask, request, Response
 app = Flask(__name__)
 
-from werkzeug.serving import make_server
-
-def shutdown():
-    server.shutdown()
+base_path = ""
 
 @app.route('/', methods=['POST'])
 def get_data():
+    print("Retrieving problem data....")
     data = request.json
-    filename = data['name'].replace(' ', '').replace('.', '-')
-    with open('{}.json'.format(filename), 'w') as json_file:
-        json.dump(data, json_file)
-    parse(data)
-    shutdown()
-    return Response(status=200)
+    create_file(base_path, data)
+    os.kill(os.getpid(), signal.SIGINT)
+    return Response(status = 200)  
 
-
-if __name__ == '__main__':
+def run_server(path):
+    global base_path
+    base_path = path
     app.run(port=10043)
