@@ -13,7 +13,6 @@ def create(args):
     file_name = args.filename
     file_name_without_ext = file_name[:file_name.rfind(".")]
     create_file(args.path, {"name": file_name_without_ext})
-    print(args)
 
 
 def init(args):
