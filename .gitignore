@@ -1,8 +1,16 @@
+# Macos 
 .DS_Store
+
+# IDEs
 .vscode
+.idea/
 .cph
-.cppt
+
+# cache
 __pycache__
+*.pyc
+
+# testing
+.cppt
 base_config.json
 *.cpp
-.idea/
