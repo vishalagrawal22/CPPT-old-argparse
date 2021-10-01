@@ -1,7 +1,7 @@
 import os
 import sys
 
-from fetch.server import run_server
+from .server import run_server
 
 app_name = "cppt"
 

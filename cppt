@@ -1,34 +1,38 @@
 #!/usr/bin/env python3
 
-from init.make_folder import make_folder
-from fetch.parse import parse_manager
-from create.create_file import create_file
+from app import *
 
 import os
 import argparse
 
 app_name = "cppt"
 
-def create(args):
+
+def create_manager(args):
     file_name = args.filename
     file_name_without_ext = file_name[:file_name.rfind(".")]
     create_file(args.path, {"name": file_name_without_ext})
 
 
-def init(args):
+def init_manager(args):
     print("Initialise")
     base_path = args.path
     print("base_path: " + base_path)
     make_folder(base_path)
 
 
-def fetch(args):
+def fetch_manager(args):
     print("Fetch")
     base_path = args.path
     app_folder_path = base_path + "/.{}".format(app_name)
     if not os.path.exists(app_folder_path):
         make_folder(base_path)
     parse_manager(base_path)
+
+
+def run_manager(args):
+    file_name = args.filename
+    run(args.path, file_name)
 
 
 parser = argparse.ArgumentParser(prog='{}'.format(app_name),
@@ -50,7 +54,7 @@ init_parser.add_argument("-p", '--path',
                          default=".",
                          help='the path to folder')
 
-init_parser.set_defaults(func=init)
+init_parser.set_defaults(func=init_manager)
 
 fetch_parser = subparsers.add_parser('fetch',
                                      help="Fetch a problem",
@@ -62,7 +66,7 @@ fetch_parser.add_argument("-p", '--path',
                           default=".",
                           help='the path to folder')
 
-fetch_parser.set_defaults(func=fetch)
+fetch_parser.set_defaults(func=fetch_manager)
 
 create_parser = subparsers.add_parser('create',
                                       help="Create a task file",
@@ -78,7 +82,23 @@ create_parser.add_argument('filename',
                            type=str,
                            help='name of the file (with file extension) to be created')
 
-create_parser.set_defaults(func=create)
+create_parser.set_defaults(func=create_manager)
+
+run_parser = subparsers.add_parser('run',
+                                   help="run program against saved testcases",
+                                   usage="{} run [-p path] filename".format(app_name))
+
+run_parser.add_argument("-p", '--path',
+                        metavar='path',
+                        type=str,
+                        default=".",
+                        help='the path to folder')
+
+run_parser.add_argument('filename',
+                        type=str,
+                        help='name of the file (with file extension) to run')
+
+run_parser.set_defaults(func=run_manager)
 
 args = parser.parse_args()
 print(args)

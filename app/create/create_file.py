@@ -1,7 +1,7 @@
 import os
 import sys
 
-from init.make_folder import make_folder
+from ..init.make_folder import make_folder
 app_name = "cppt"
 
 

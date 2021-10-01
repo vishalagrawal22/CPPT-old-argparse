@@ -14,3 +14,6 @@ __pycache__
 .cppt
 base_config.json
 *.cpp
+
+# binaries 
+cppt.egg-info
